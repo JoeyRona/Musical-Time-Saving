@@ -1,0 +1,705 @@
+/* RiffBack: the page is a pedal enclosure (enamel blue, amber signal lamp);
+   the chord chart is the sheet of paper on the music stand. */
+
+:root {
+  --enamel: #183a57;
+  --enamel-deep: #10293f;
+  --enamel-edge: #2c5577;
+  --steel: #9db3c4;
+  --text: #e9eff3;
+  --paper: #eef1ec;
+  --paper-line: #c9d0cb;
+  --ink: #1a2128;
+  --ink-soft: #55606a;
+  --lamp: #f2b33d;
+  --lamp-glow: rgba(242, 179, 61, 0.45);
+  --hot: #e5533d;
+
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", system-ui, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.375rem;
+  --step-2: 1.75rem;
+  --step-3: 2.75rem;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--enamel);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+h1,
+h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--lamp);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  margin-bottom: 2.5rem;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--step-1);
+  letter-spacing: 0.02em;
+}
+
+.wordmark::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--lamp);
+  box-shadow: 0 0 10px var(--lamp-glow);
+}
+
+.masthead h1 {
+  font-size: var(--step-3);
+  max-width: 16ch;
+}
+
+.lede {
+  max-width: 38rem;
+  margin: 1rem 0 0;
+  color: var(--steel);
+}
+
+/* ---------- Panels ---------- */
+
+.panel {
+  border-top: 1px solid var(--enamel-edge);
+  padding: 2rem 0;
+}
+
+.panel-head {
+  margin-bottom: 1.5rem;
+}
+
+.panel h2 {
+  font-size: var(--step-2);
+}
+
+.hint {
+  color: var(--steel);
+  margin: 0.35rem 0 0;
+  max-width: 40rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+  font-size: var(--step--1);
+  color: var(--steel);
+}
+
+.field select,
+.field input {
+  color: var(--text);
+  background: var(--enamel-deep);
+  border: 1px solid var(--enamel-edge);
+  border-radius: 4px;
+  padding: 0.5rem 0.6rem;
+  min-width: 0;
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--lamp);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------- Recorder: lamp and footswitch ---------- */
+
+.rig {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.record-button {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  width: 8.5rem;
+  padding: 0 0 1rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.record-button::after {
+  /* the footswitch */
+  content: "";
+  order: -1;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #d9dee2 0 38%, #aab3ba 40%, #6f7b85 62%, #3c4852 64%, #24313d 100%);
+  box-shadow: 0 6px 0 #0b1c2b, inset 0 2px 2px rgba(255, 255, 255, 0.4);
+  transition: transform 80ms, box-shadow 80ms;
+}
+
+.record-button:active::after {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #0b1c2b, inset 0 2px 2px rgba(255, 255, 255, 0.4);
+}
+
+.record-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lamp {
+  order: -2;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #4a3a1e;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.is-recording .lamp {
+  background: var(--hot);
+  box-shadow: 0 0 14px rgba(229, 83, 61, 0.8);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.rig-controls {
+  flex: 1 1 18rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.led {
+  width: 1.1rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--enamel-deep);
+}
+
+.led.on {
+  background: var(--lamp);
+  box-shadow: 0 0 6px var(--lamp-glow);
+}
+
+.led.hot.on {
+  background: var(--hot);
+}
+
+.timer {
+  margin-left: 0.75rem;
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.warn {
+  margin: 0;
+  color: var(--lamp);
+}
+
+.alt {
+  margin: 1.75rem 0 0;
+  color: var(--steel);
+}
+
+/* ---------- Status ---------- */
+
+.status,
+.error,
+.note {
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--steel);
+  background: var(--enamel-deep);
+}
+
+.error {
+  border-color: var(--hot);
+}
+
+.note {
+  border-color: var(--lamp);
+}
+
+/* ---------- Readout ---------- */
+
+.results {
+  scroll-margin-top: 1rem;
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--enamel-edge);
+}
+
+.reading {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.reading-label {
+  color: var(--steel);
+  font-size: var(--step--1);
+}
+
+.reading-value {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--step-3);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.reading-value small {
+  font-size: var(--step-1);
+  color: var(--steel);
+}
+
+.reading-fix {
+  font-size: var(--step--1);
+  color: var(--steel);
+}
+
+/* ---------- Chord chart: the paper on the stand ---------- */
+
+.chart {
+  margin: 0.5rem 0 2rem;
+  padding: 1.75rem 1.75rem 1.25rem;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 #fff inset, 0 18px 40px -18px rgba(3, 14, 24, 0.7);
+}
+
+.chart-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.chart-meta {
+  font-family: var(--body);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.pass {
+  color: #9a6a0c;
+}
+
+.staff {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 1.5rem;
+}
+
+.bar {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 6rem;
+  padding: 1.4rem 0.75rem 0.5rem 1rem;
+  border-left: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.staff .bar:last-child {
+  border-right: 1.5px solid var(--ink);
+}
+
+.bar-number {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.bar.repeat-start .bar-number {
+  left: 1.2rem;
+}
+
+.bar.is-current {
+  background: linear-gradient(to top, rgba(242, 179, 61, 0.22), rgba(242, 179, 61, 0) 70%);
+}
+
+/* Repeat signs: thick line, thin line and two dots, as on a real lead sheet. */
+.bar.repeat-start {
+  border-left: none;
+  padding-left: 1.75rem;
+}
+
+.bar.repeat-start::before,
+.bar.repeat-end::after,
+.bar.final::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+}
+
+.bar.repeat-start::before {
+  left: 0;
+  background:
+    radial-gradient(circle, var(--ink) 2.5px, transparent 3px) 10px 40% / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ink) 2.5px, transparent 3px) 10px 60% / 6px 6px no-repeat,
+    linear-gradient(to right, var(--ink) 0 4px, transparent 4px 7px, var(--ink) 7px 8.5px, transparent 8.5px);
+}
+
+.bar.repeat-end,
+.bar.final {
+  border-right: none !important;
+  padding-right: 1.5rem;
+}
+
+.bar.repeat-end::after {
+  right: 0;
+  background:
+    radial-gradient(circle, var(--ink) 2.5px, transparent 3px) 0 40% / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ink) 2.5px, transparent 3px) 0 60% / 6px 6px no-repeat,
+    linear-gradient(to left, var(--ink) 0 4px, transparent 4px 7px, var(--ink) 7px 8.5px, transparent 8.5px);
+}
+
+.bar.final::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ink) 0 4px, transparent 4px 7px, var(--ink) 7px 8.5px, transparent 8.5px);
+}
+
+.times {
+  position: absolute;
+  top: 0.2rem;
+  right: 1.4rem;
+  font-family: var(--display);
+  font-weight: 600;
+}
+
+.chord {
+  grid-row: 1;
+  align-self: start;
+  min-width: 0;
+}
+
+.chord select {
+  appearance: none;
+  max-width: 100%;
+  padding: 0 0.2rem;
+  margin-left: -0.2rem;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--step-2);
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.chord select:hover {
+  background: rgba(26, 33, 40, 0.07);
+}
+
+.chord select option {
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+}
+
+.slashes {
+  grid-row: 2;
+  grid-column: 1 / -1;
+  display: grid;
+  margin-top: 0.35rem;
+}
+
+.slash {
+  font-family: var(--display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--ink-soft);
+  transition: color 60ms;
+}
+
+.slash.lit {
+  color: #c98a0c;
+}
+
+.chart-hint {
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+}
+
+/* ---------- Band ---------- */
+
+.segmented {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.segmented legend {
+  padding: 0;
+  margin-bottom: 0.5rem;
+  color: var(--steel);
+  font-size: var(--step--1);
+}
+
+.segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.segment {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--enamel-edge);
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.segment input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.segment:has(input:focus-visible) {
+  outline: 2px solid var(--lamp);
+  outline-offset: 2px;
+}
+
+.segment.checked {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--enamel-deep);
+  font-weight: 600;
+}
+
+.transport {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem 0 1.75rem;
+}
+
+.play-button,
+.primary {
+  padding: 0.8rem 1.4rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--lamp);
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.play-button {
+  min-width: 13rem;
+  font-family: var(--display);
+  font-size: var(--step-1);
+}
+
+.secondary {
+  padding: 0.8rem 1.1rem;
+  border: 1px solid var(--steel);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.play-button:disabled,
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.repeats input {
+  width: 5rem;
+}
+
+.mixer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.fader {
+  display: grid;
+  gap: 0.35rem;
+  font-size: var(--step--1);
+  color: var(--steel);
+}
+
+.fader input {
+  accent-color: var(--lamp);
+  width: 100%;
+}
+
+/* ---------- Export ---------- */
+
+.downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.steps {
+  margin: 1.75rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--steel);
+  max-width: 40rem;
+}
+
+.steps li + li {
+  margin-top: 0.35rem;
+}
+
+.steps strong {
+  color: var(--text);
+}
+
+.footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--enamel-edge);
+  color: var(--steel);
+  font-size: var(--step--1);
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 40rem) {
+  .page {
+    padding-top: 2rem;
+  }
+
+  .masthead h1 {
+    font-size: 2.15rem;
+  }
+
+  .staff {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1rem;
+  }
+
+  .staff .bar:nth-child(2n) {
+    border-right: 1.5px solid var(--ink);
+  }
+
+  .chart {
+    padding: 1.25rem 1rem 1rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  .reading-value {
+    font-size: 2.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-recording .lamp {
+    animation: none;
+  }
+
+  .record-button::after,
+  .slash {
+    transition: none;
+  }
+}

@@ -1,0 +1,15 @@
+[project]
+name = "riffback"
+version = "0.1.0"
+description = "Turn a guitar riff into a drum and bass backing track"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B905"]
